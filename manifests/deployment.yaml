@@ -21,7 +21,8 @@ spec:
     spec:
       containers:
         - name: prototype
-          image: europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/prototypes:$SHORT_SHA'
+          #image: europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/prototypes:$SHORT_SHA'
+          image: europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/prototypes:0862970
           resources:
             limits:
                #memory: 512Mi

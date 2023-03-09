@@ -18,25 +18,36 @@ steps:
   - 'europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/prototypes:$SHORT_SHA'
 
 
-# This step only applies the managed cert in dev
-#- name: 'gcr.io/cloud-builders/git'
-#  id: Managed cert
-#  entrypoint: 'bash'
-#  args:
-#  - '-c'
-#  - |
-#    sed -i "s#_DOMAINNAME#${_DOMAINNAME}#g" manifests/managed-cert.yaml
+# This step only applies the managed cert and domainname in dev
+- name: 'gcr.io/cloud-builders/git'
+  id: Managed cert and Domain
+  volumes:
+  - name: 'manifestsvolume'
+    path: '/data'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    sed "s/COMMIT_SHA/${SHORT_SHA}/g" manifests/deployment.yaml.tpl > manifests/deployment.yaml
+    sed -i "s#_DOMAINNAME#${_DOMAINNAME}#g" manifests/certificate.yaml
+    cp manifests/certificate.yaml /data/certificate.yaml
+    cp manifests/ingress.yaml /data/ingress.yaml
+    cp manifests/services.yaml /data/services.yaml
+    cp manifests/deployment.yaml /data/deployment.yaml
 
 
 
-#- name: "gcr.io/cloud-builders/gke-deploy"
-#  args:
-#  - run
-#  - --filename=manifests/
-#  - --location=europe-west1
-#  - --namespace=${_NAMESPACE}
-#  - --cluster=${PROJECT_ID}-cluster
-#  timeout: 600s
+- name: "gcr.io/cloud-builders/gke-deploy"
+  volumes:
+    - name: 'manifestsvolume'
+      path: '/data'
+  args:
+  - run
+  - --filename=/data/
+  - --location=europe-west1
+  - --namespace=${_NAMESPACE}
+  - --cluster=${PROJECT_ID}-cluster
+  timeout: 600s
 
-#substitutions:
-#    _NAMESPACE: dft-nap-dev
+substitutions:
+    _NAMESPACE: dft-nap-dev
