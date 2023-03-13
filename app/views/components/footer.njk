@@ -1,0 +1,35 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+
+{{ govukFooter({
+  classes:"ftd-footer",
+  meta: {
+    items: [
+      {
+        href: "/contact",
+        text: "Email us if you have questions or need help"
+      },
+      {
+        href: "/accessibility",
+        text: "Accessibility"
+      },
+      {
+        href: "/cookies",
+        text: "Cookies"
+      },
+      {
+        href: "/privacy",
+        text: "Privacy"
+      },
+      {
+        href: "/terms-and-conditions",
+        text: "Terms and Conditions"
+      },
+      {
+        href: "/roadmap",
+        text: "Roadmap"
+      }
+    ]
+  }
+}) }}
