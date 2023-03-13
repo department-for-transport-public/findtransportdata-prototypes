@@ -5,26 +5,3 @@
 
 // Add extra styles here
 @import 'search-icon';
-
-
-.ftd-search_button_wrapper {
-    width: 1%;
-    position: relative;
-    display: table-cell;
-    vertical-align: top;
-}
-
-.ftd-search_button_wrapper button {
-    border: 0;
-    cursor: pointer;
-    border-radius: 0;
-    position: relative;
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    text-indent: -5000px;
-    overflow: hidden;
-}
-.ftd-search_button_wrapper button:hover {
-    background-color: #207dce;
-}
