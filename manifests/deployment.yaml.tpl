@@ -33,3 +33,11 @@ spec:
            - name: prototype-app
              containerPort: 3000
              protocol: TCP
+          volumeMounts:
+          - name: proto-pvc
+            mountPath: /src/app
+            readOnly: false
+      volumes:
+        - name: proto-pvc
+          persistentVolumeClaim:
+            claimName: proto-pvc

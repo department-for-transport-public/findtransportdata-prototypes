@@ -34,7 +34,7 @@ steps:
     cp manifests/ingress.yaml /data/ingress.yaml
     cp manifests/services.yaml /data/services.yaml
     cp manifests/deployment.yaml /data/deployment.yaml
-
+    cp manifests/proto-pvc.yaml /data/proto-pvc.yaml
 
 
 - name: "gcr.io/cloud-builders/gke-deploy"
