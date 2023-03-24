@@ -10,7 +10,7 @@
 
 
 {% set title = "Your metadata entries" %}
-{% block pageTitle %}{{title}} - {{ super() }}
+{% block pageTitle %}Your metadata entries - GOV.UK - Find transport data
 {% endblock %}
 
 
@@ -121,7 +121,6 @@
                                                                 Private
                                                             </span>
                                                         {% endif %}
-                                                        <a href="/dataset/{{package.name}}" class="govuk-link govuk-link--no-visited-state">{{package_title}}</a>
 
                                                     </h3>
                                                     {{ govukSummaryList({
