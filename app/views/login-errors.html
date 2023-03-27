@@ -122,7 +122,7 @@
                         value:form_data.full_name,
                         id: "field-full_name",
                         name: "full_name",
-                        classes: "govuk-input--error" if full_name_error
+                        classes: "govuk-input--error" 
                     }) }} 
                 
                 {{ govukInput({
@@ -135,7 +135,7 @@
                         value:form_data.email_address,
                         id: "field-email_address",
                         name: "email_address",
-                        classes: "govuk-input--error" if email_address_error
+                        classes: "govuk-input--error" 
                     }) }}
 
                 {{ govukInput({
@@ -148,7 +148,7 @@
                         value:form_data.organisation_name,
                         id: "field-organisation_name",
                         name: "organisation_name",
-                        classes: "govuk-input--error" if organisation_name_error
+                        classes: "govuk-input--error" 
                     }) }}
             {% endcall %}
         </div>

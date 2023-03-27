@@ -120,6 +120,7 @@
                                                                 Private
                                                             </span>
                                                         {% endif %}
+                                                        <a href="#" class="govuk-link govuk-link--no-visited-state">{{package_title}}</a>
 
                                                     </h3>
                                                     {{ govukSummaryList({
@@ -176,7 +177,7 @@
                                             </div>
                                             <div class="govuk-grid-row govuk-body">
                                             <div class="govuk-grid-column-full">
-                                                <div class="ftd-delete-confirm-collapse" id="delete-confirm">
+                                                <div id="delete-confirm">
                                                 <div class="ftd-delete-confirm-container govuk-!-padding-5 govuk-!-margin-top-7 govuk-!-margin-bottom-5">
                                                     <form action="#" method="post"  name="confirm-dataset-delete-form" class="confirm-delete-form">
                                                    {{ govukInput({
