@@ -1,0 +1,331 @@
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{# {% from "components/feedbackMacro.njk" import extendedFeedback %} #}
+
+{% extends "layouts/main.html" %}
+
+{# TODO: Sort out super title & how to pass it in #}
+{% set title = "New Dataset" %}
+{% block pageTitle %}{{title}} - {{serviceName}} {% endblock %}
+
+
+{# START: breadcrumbs #}
+{% block breadcrumbs %}
+    {{ govukBreadcrumbs({
+    items: [
+        {
+        text: "Home",
+        href: "/"
+        },
+        {
+        text: "All datasets",
+        href: "/browse"
+        },
+        {
+        text: "New Dataset"
+        }
+    ]
+    }) }}
+{% endblock %}
+{# END: breadcrumbs #}
+
+
+{% set summaryHtml %}
+    {{ govukSummaryList({
+    classes: 'govuk-summary-list--no-border',
+    rows: [
+        {
+            key: {
+                text: "Locations"
+            },
+            value: {
+                text: "East Midlands England"
+            }
+        },
+        {
+            key: {
+                text: "Topics"
+            },
+            value: {
+                html: govukTag({
+                  text: "ACCIDENTS AND INCIDENTS"
+              }) 
+            }
+        },
+        {
+            key: {
+                text: "Time period"
+            },
+            value: {
+                text: 	"2/10/2012 - Present"
+            }
+        },
+        {
+            key: {
+                text: "Update frequency"
+            },
+            value: {
+                text:"Live"
+            }
+        },
+        {
+            key: {
+                text: "Organisation"
+            },
+            value: {
+                html:'<a href="#" class="govuk-link">Basemap</a>'
+            }
+        },
+        {
+            key: {
+                text: "Licence"
+            },
+            value: {
+                html: govukTag({
+                  text: "FREE"
+              }) 
+            }
+        },
+        {
+            key: {
+                text: "Transport mode"
+            },
+            value: {
+                text: "Bicycles"
+            }
+        },
+        {
+            key: {
+                text: "Road network"
+            },
+            value: {
+                text: "B roads"
+            }
+        },
+        {
+            key: {
+                text: "Description"
+            },
+            value: {
+                text: "-"
+            }
+        }
+    ]
+    }) }}
+{% endset %}
+
+{% set moreDetailsHtml %}
+    {{ govukSummaryList({
+    classes: 'govuk-summary-list--no-border',
+    rows: [
+        {
+            key: {
+                text: "Locations"
+            },
+            value: {
+                text: "	East Midlands England"
+            }
+        },
+        {
+            key: {
+                text: "Regions"
+            },
+            value: {
+                text: "Local Authority Districts - inc London Borough and Metropolitan Districts - and lower levels"
+            }
+        },
+        {
+            key: {
+                text: "Topics"
+            },
+            value: {
+                html: govukTag({
+                  text: "ACCIDENTS AND INCIDENTS"
+                }) 
+            }
+        },
+        {
+            key: {
+                text: "Time period"
+            },
+            value: {
+                text: "2/10/2012 - Present"
+            }
+        },
+        {
+            key: {
+                text: "Update frequency"
+            },
+            value: {
+                text: "Live"
+            }
+        },
+        {
+            key: {
+                text: "Organisation"
+            },
+            value: {
+                html:'<a href="#" class="govuk-link">Basemap</a>'
+            }
+        },
+        {
+            key: {
+                text: "Licence"
+            },
+            value: {
+                html: "-"
+            }
+        },
+        {
+            key: {
+                text: "Transport mode"
+            },
+            value: {
+                text: "Bicycles"
+            }
+        },
+        {
+            key: {
+                text: "Road network"
+            },
+            value: {
+                text: "	B roads"
+            }
+        },
+        {
+            key: {
+                text: "Version"
+            },
+            value: {
+                text: "-"
+            }
+        },
+        {
+            key: {
+                text: "Date added"
+            },
+            value: {
+                text: "08/03/2023"
+            }
+        },
+        {
+            key: {
+                text: "Last updated"
+            },
+            value: {
+                text: "08/03/2023"
+            }
+        },
+        {
+            key: {
+                text: "Summary"
+            },
+            value: {
+                html: "-"
+            }
+        }
+        
+    ]
+    }) }}
+{% endset %}
+
+{% set contactHtml %}
+    {{ govukSummaryList({
+    classes: 'govuk-summary-list--no-border',
+    rows: [
+        {
+            key: {
+                text: "Contact"
+            },
+            value: {
+                text: "asim"
+            }
+        },
+        {
+            key: {
+                text: "Contact email"
+            },
+            value: {
+                text: "mohammad.asim.iqbal.cs@gmail.com"
+            }
+        }
+    ]
+    }) }}
+{% endset %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl">
+                New Dataset
+            </h1>
+
+            {{
+            govukTabs({
+                items: [
+                    {
+                        label: "Summary",
+                        id: "summary",
+                        panel: {
+                            html: summaryHtml
+                        }
+                    },
+                    {
+                        label: "More details",
+                        id: "more-details",
+                        panel: {
+                            html: moreDetailsHtml
+                        }
+                    },
+                    {
+                        label: "Contact",
+                        id: "contact",
+                        panel: {
+                            html: contactHtml
+                        }
+                    }
+                ]
+                })
+            }}
+
+
+            <h2 class="govuk-heading-m">View this dataset</h2>
+
+            <p class="govuk-body-m">
+                This dataset is hosted and viewable at:
+            </p>
+
+            <p class="govuk-body-m">
+                <a href="{{ datasetDetails.url }}" class="govuk-link">https://github.com/openraildata/reference-data</a>
+            </p>
+
+            <p class="govuk-body-m">
+                To access this dataset you will need to visit their website.
+            </p>
+
+            {{ govukSummaryList({
+                classes: 'govuk-summary-list--no-border',
+                rows: [
+                    {
+                        key: {
+                            text: "Data formats"
+                        },
+                        value: {
+                            text: "csv"
+                        }
+                    }
+                ]
+            }) }}
+
+            
+            {{ govukButton({
+                text: "Go to the dataset",
+                href: datasetDetails.url
+            }) }}
+        </div>
+    </div>
+{% endblock %}
