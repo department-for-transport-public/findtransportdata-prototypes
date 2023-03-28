@@ -15,5 +15,5 @@ router.get('/cookies',(req,res)=> res.render('cookies'))
 router.get('/privacy',(req,res)=> res.render('privacy'))
 router.get('/roadmap',(req,res)=> res.render('roadmap'))
 router.get('/terms-and-conditions',(req,res)=> res.render('terms-and-conditions'))
-
-router.get('/dataset/id1', (req,res) => res.render("dataset-details") )
+router.get('/browse/filter',(req,res)=> res.render('browseFilter'))
+router.get('/dataset/id_1', (req,res) => res.render("dataset-details") )

@@ -22,7 +22,6 @@
   <script src="/public/javascripts/dataset-search-filter.js"></script>
 {% endblock %}
 
-
 {% set title = "All datasets" %}
 {% block pageTitle %}{{title}} - {{ serviceName }}
 {% endblock %}
@@ -369,7 +368,7 @@
 
 {% block content %}
 <form
-action="/browse/filter" 
+action="/browse" 
       method="get"
       role="search"
       id="search-form" 
@@ -485,13 +484,13 @@ action="/browse/filter"
             })
         }}  
         </div>
-            <a href="" id="remove_filters_link" class="govuk-link">Remove filters</a>
+            <a href="/browse" id="remove_filters_link" class="govuk-link">Remove filters</a>
        
     </div>
 </div>
 <div class="govuk-grid-column-two-thirds">
         <p id="filtered_result" class="govuk-body govuk-!-font-weight-bold" aria-atomic="true">
-             100 result 
+             10 result 
         </p>
 
         {% set sortFieldItems = [{value:"Most_Recent", text:"Most Recent"},{value:"Relevance", text:"Relevance"},{'text': 'Name Ascending', 'value': 'title_string asc'},
@@ -508,7 +507,256 @@ action="/browse/filter"
         items: sortFieldItems
     }) }}
   
-
+    <div class="facet-tags" data-module="track-click">         
+        
+        <div class="facet-tags__group">
+        
+            
+                 
+              
+            
+                <div class="facet-tags__wrapper">    
+                    
+                    <span class="facet-tags__preposition">
+                        Topics
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            Accidents and incidents
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="Accidents" and="" incidents="" data-facet="selectedTopics" data-value="topic_accidents_and_incidents" data-name="" control-id="ControlID-127">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">Accidents and incidents</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            
+            
+                 
+              
+            
+                <div class="facet-tags__wrapper">
+                    
+                    <span class="facet-tags__preposition">
+                        Transport modes
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            Bicycles
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="Bicycles" data-facet="selectedTransportModes" data-value="transport_mode_bicycles" data-name="" control-id="ControlID-128">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">Bicycles</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            
+            
+                 
+              
+            
+                <div class="facet-tags__wrapper">          
+                    
+                    <span class="facet-tags__preposition">
+                        Road networks
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            A roads
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="A" roads="" data-facet="selectedRoadNetworks" data-value="road_network_a_roads" data-name="" control-id="ControlID-129">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">A roads</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            
+            
+                 
+              
+            
+                <div class="facet-tags__wrapper">
+                    
+                    <span class="facet-tags__preposition">
+                        In
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            East Midlands England
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="East" midlands="" england="" data-facet="selectedLocations" data-value="location_east_midlands_england" data-name="" control-id="ControlID-130">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">East Midlands England</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            
+            
+                
+              
+            
+                <div class="facet-tags__wrapper">
+                    
+                    <span class="facet-tags__preposition">
+                        Region
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            Counties or Combined Authorities
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="Counties" or="" combined="" authorities="" data-facet="selectedRegions" data-value="region_counties_or_combined_authorities" data-name="" control-id="ControlID-131">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">Counties or Combined Authorities</span>
+                        </button>
+                    </span>
+                </div>
+            
+                <div class="facet-tags__wrapper">
+                    
+                    <span class="facet-tags__preposition">
+                        or
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            Local Authority Districts - inc London Borough and Metropolitan Districts - and lower
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="Local" authority="" districts="" -="" inc="" london="" borough="" and="" metropolitan="" lower="" data-facet="selectedRegions" data-value="region_local_authority_districts_-_inc_london_borough_and_metropolitan_districts_-_and_lower" data-name="" control-id="ControlID-132">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">Local Authority Districts - inc London Borough and Metropolitan Districts - and lower</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            <div class="facet-tags__wrapper">
+                <span class="facet-tags__preposition">
+                    Time period coverage start
+                </span>
+                <span class="facet-tag">
+                    <span class="facet-tag__text">
+                        2023-03-28
+                    </span>
+                    <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="2023-03-28" data-facet="startDate" data-value="startdate" data-name="" control-id="ControlID-133">
+                        <span aria-hidden="true">✕</span>
+                        <span class="govuk-visually-hidden">2023-03-28</span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            <div class="facet-tags__wrapper">
+                <span class="facet-tags__preposition">
+                    Time period coverage end
+                </span>
+                <span class="facet-tag">
+                    <span class="facet-tag__text">
+                        2023-03-29
+                    </span>
+                    <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="2023-03-29" data-facet="endDate" data-value="endDate" data-name="" control-id="ControlID-134">
+                        <span aria-hidden="true">✕</span>
+                        <span class="govuk-visually-hidden">2023-03-29</span>
+                    </button>
+                </span>
+            </div>
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            
+            
+                 
+              
+            
+                <div class="facet-tags__wrapper">
+                    
+                    <span class="facet-tags__preposition">
+                        Updates
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            live
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="live" data-facet="selectedUpdateFrequencies" data-value="update_frequency_live" data-name="" control-id="ControlID-135">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">live</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+        
+        <div class="facet-tags__group">
+            
+            
+                 
+              
+            
+                <div class="facet-tags__wrapper">
+                    
+                    <span class="facet-tags__preposition">
+                        From
+                    </span>
+                    
+                    <span class="facet-tag">
+                        <span class="facet-tag__text">
+                            basemap
+                        </span>
+                        <button type="button" class="facet-tag__remove" data-module="remove-filter-link" data-track-label="basemap" data-facet="selectedOrganisations" data-value="organisation_basemap" data-name="" control-id="ControlID-136">
+                            <span aria-hidden="true">✕</span>
+                            <span class="govuk-visually-hidden">basemap</span>
+                        </button>
+                    </span>
+                </div>
+            
+        </div>
+        
+    
+    </div>
+    
+    
+    
+    
     {% for package in filteredDatasets %}
     {# package-item #}
                     {% set truncate = truncate or 180 %}
