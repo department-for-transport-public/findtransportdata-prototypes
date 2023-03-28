@@ -1,0 +1,627 @@
+{% extends "layouts/main.html" %}
+
+
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{%- from "components/select/macro.njk" import extendedGovukSelect -%}
+
+
+{% block content %}
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-6">Create a metadata entry so people can find your dataset</h1>
+<div class="govuk-grid-row govuk-body govuk-!-margin-top-9">
+    {# Side List #}
+    <div class="govuk-grid-column-one-third govuk-body govuk-!-margin-bottom-9 ftd-sticky">
+        <ul class="govuk-list">
+            <li class="govuk-!-margin-bottom-4">
+                <a class="govuk-link" href="#about">About your dataset</a>
+            </li>
+            <li class="govuk-!-margin-bottom-4">
+                <a class="govuk-link" href="#what-data-is-included">What data is included in your dataset?</a>
+            </li>
+            <li class="govuk-!-margin-bottom-4">
+                <a class="govuk-link" href="#what-time-period">What time period does your dataset cover?</a>
+            </li>
+            <li class="govuk-!-margin-bottom-4">
+                <a class="govuk-link" href="#location">What location was your dataset collected in?</a>
+            </li>
+            <li class="govuk-!-margin-bottom-4">
+                <a class="govuk-link" href="#categorised">How is your dataset categorised?</a>
+            </li>
+            <li class="govuk-!-margin-bottom-4">
+                <a class="govuk-link" href="#additional-information">Additional information</a>
+            </li>
+            <li>
+                <a class="govuk-link" href="#contact-details">Contact details</a>
+            </li>
+        </ul>
+    </div>
+    {# Side List finish #}
+
+    <div class="govuk-grid-column-two-thirds">
+        <form action={{formAction}} method="post">
+            {% call govukFieldset({
+                classes: "govuk-!-margin-bottom-6 ",
+                attributes:{
+                    id:"about"
+                },
+                legend: {
+                    classes:"govuk-fieldset__legend--l",
+                    text: "About your dataset"
+                }
+            }) %}
+
+            {# Organization #}
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="field-owner-org">
+                    <h3 class="govuk-heading-s"> Organisation </h3>
+                </label>
+
+                {% set organisation_options = [{value: "", text: "Select a publisher"},{value:"1",text:"Basemap",selected:true}] %}
+                {{ extendedGovukSelect({
+                    id: "field-owner-org",
+                    name: "owner_org",
+                    errorMessage: error_text,
+                    options: [{items:organisation_options}]
+                }) }}
+            </div>
+            {# Organization finish #}
+            
+            {# Data publish online ? #}
+            {% set data_available_if_yes_conditional_item_html %}
+            {{ govukInput({
+            label: {
+                text: "Website link to your dataset",
+                isPageHeading: true
+            },
+            hint: {
+                text: "The URL to your dataset or the page that hosts your dataset. Please remember to include http:// or https://"
+            },
+            id: "field-url",
+            name: "url",
+            value:form_data.url
+            }) }}
+            {% endset %}
+            <div class="govuk-form-group">
+                {{ govukRadios({
+                idPrefix:"field-data-available",
+                fieldset: {
+                    legend: {
+                    text: "Is your data published online?",
+                    classes:"govuk-heading-s govuk-!-font-weight-bold govuk-!-margin-bottom-4"
+                    }
+                },
+                name:"data_available",
+                classes:"govuk-radios--conditional",
+                items: [
+                {
+                    id:"data-available",
+                    text:"Yes, it can be accessed via a website link",
+                    value:"yes",
+                    attributes:{
+                        'data-aria-controls': "conditional-data-available"
+                    },
+                    checked: false,
+                    conditional:{
+                        html: data_available_if_yes_conditional_item_html
+                    }
+                },
+                {
+                    id:"data-available-2",
+                    text:"No, I can provide contact details so people can contact me to access this dataset",
+                    value:"no",
+                    checked: true
+                }]
+                }) }}
+            </div>
+
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+            {# Data publish online finish ? #}
+
+            {# Dataset title #}
+            
+            {% call govukFieldset({
+            attributes:{
+                id:"what-data-is-included"
+            },
+            legend: {
+                classes:"govuk-fieldset__legend--l",
+                text: "What data is included in your dataset?"
+            }
+            }) %}
+            {{ govukInput({
+            hint: {
+                text: "Describe what is captured in your dataset. For example, “Smart Sensor Traffic Counts” or “Electric Vehicle Charging Points”."
+            },
+            id: "field-title",
+            name: "title",
+            value:"Electric Vehicle Charging Points"
+            }) }}
+            {% endcall %}
+
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+            {# Dataset title finish #}
+            
+            {# Regular updated #}
+            {% set data_available_regularly_updated_yes %}
+
+            {# Frequencies #}
+
+            {% set regular_updated_frequency_options = [{value: "", text: "Select the update frequency"},{value: "live", text: "Live", selected:true},{value: "daily", text: "Daily"}] %}
+
+            {{ govukSelect({
+            label: {
+                text: "How often is this dataset updated?",
+                isPageHeading: true
+            },
+            id: "field-update-frequency",
+            name: "update_frequency",
+            items: regular_updated_frequency_options
+            }) }}
+
+            {{ govukDateInput({
+            id:"field-start-date",
+            fieldset: {
+                legend: {
+                    text: "What is the earliest date this dataset covers (optional)",
+                    isPageHeading: true
+                }
+            },
+            hint: {
+                text: "For example, 19 01 2011"
+            },
+            items: [
+            {
+                id:"regularly-updated-earliest-day",
+                label:"Day",
+                classes: "govuk-input--width-2",
+                name:"regularly_updated_earliest_day",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            },
+            {
+                id:"regularly-updated-earliest-month" ,
+                label:"Month",
+                classes: "govuk-input--width-2",
+                name:"regularly_updated_earliest_month",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            },
+            {
+                id:"regularly-updated-earliest-year" ,
+                label:"Year",
+                classes: "govuk-input--width-4",
+                name:"regularly_updated_earliest_year",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                    value:""
+                }
+            ]
+            }) }}
+
+            {% endset %}
+            {# Regular update finishes #}
+
+            {# regularly-updated-2 conditonal options #}
+            {% set data_available_regularly_updated_no_conditional %}
+           
+            {{ govukDateInput({
+            fieldset: {
+                legend: {
+                    text: "What is the earliest date this dataset covers ",
+                    isPageHeading: true
+                }
+            },
+            hint: {
+                text: "For example if the dataset covers 19/01/2011 - 19/08/2011, enter 19 01 2011"
+            },
+            items: [
+            {
+                id:"date-range-earliest-day",
+                label:"Day",
+                classes: "govuk-input--width-2 ",
+                name:"date_range_earliest_day",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            },
+            {
+                id:"date-range-earliest-month" ,
+                label:"Month",
+                classes: "govuk-input--width-2 ",
+                name:"date_range_earliest_month",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+                },
+            {
+                id:"date-range-earliest-year" ,
+                label:"Year",
+                classes: "govuk-input--width-4 ",
+                name:"date_range_earliest_year",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            }]
+            }) }}
+
+            {{ govukDateInput({
+            fieldset: {
+                legend: {
+                    text: "What is the latest date this dataset covers",
+                    isPageHeading: true
+                }
+            },
+            hint: {
+                text: "For example if the dataset covers 19/01/2011 - 19/08/2011, enter 19 08 2011"
+            },
+            items: [
+            {
+                id:"date-range-latest-day",
+                label:"Day",
+                classes: "govuk-input--width-2 " ,
+                name:"date_range_latest_day",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            },
+            {
+                id:"date-range-latest-month" ,
+                label:"Month",
+                classes: "govuk-input--width-2 " ,
+                name:"date_range_latest_month",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            },
+            {
+                id:"date-range-latest-year" ,
+                label:"Year",
+                classes: "govuk-input--width-4 " ,
+                name:"date_range_latest_year",
+                pattern:"[0-9]*",
+                attributes:{
+                    inputmode:"numeric"
+                },
+                value:""
+            }]
+            }) }}
+            {% endset %}
+            {# regularly-updated-2 conditonal options finishes #}
+
+            {# Regular update main #}
+            <div class="govuk-form-group">
+                {% call govukFieldset({
+                attributes:{
+                id:"what-time-period"
+                },
+                legend: {
+                classes:"govuk-fieldset__legend--l",
+                text: "What time period does your dataset cover?"
+                }
+                }) %}
+
+                <h3 class="govuk-heading-s">
+                    Is this dataset updated regularly?
+                </h3>
+
+                {{ govukRadios({
+                idPrefix: "field-regularly-updated",
+                name:"regularly_updated",
+                classes:"govuk-radios--conditional",
+                items: [
+                {
+                    id:"regularly-updated",
+                    text:"My dataset is live or regularly updated",
+                    value:"yes",
+                    checked: true,
+                    conditional:{
+                        html: data_available_regularly_updated_yes
+                    }
+                },
+                {
+                    id:"regularly-updated-2",
+                    text:"This data covers a specific time period and has an end date",
+                    value:"no",
+                    checked: false,
+                    conditional:{
+                        html: data_available_regularly_updated_no_conditional
+                    }
+                }]
+                }) }}
+                {% endcall %}
+            </div>
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+            {# Regular updated finish #}
+             
+            {# Locations #}
+            {% call govukFieldset({
+            attributes : {
+                id:"location"
+            },
+            legend: {
+            id:"location",
+            text: "What geographic location does your dataset cover?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            }) %}
+            <label class="govuk-label" for="field-locations">
+                <h3 class="govuk-heading-s">
+                    What location best describes this dataset?
+                </h3>
+            </label>
+
+            {% set label_class = {classes:"ftd-margin-bottom-12"} %}
+            {% set locations_item = [{value: "East Midlands England", text: "East Midlands England", label: label_class, checked: true },
+            {value: "East of England", text: "East of England", label: label_class },
+            {value: "England", text: "England", label: label_class },
+            {value: "England and Wales", text: "England and Wales", label: label_class },
+            {value: "Great Britain", text: "Great Britain", label: label_class }] %}
+    
+
+            {{ govukRadios({
+            idPrefix:"field-locations",
+            name:"locations",
+            classes:"govuk-!-margin-bottom-4 ftd-grid-2-columns",
+            hint: {
+            text: "Select a specific location such as a country or region"
+            },
+            items: locations_item
+            }) }}
+
+            <label class="govuk-label" for="field-regions">
+                <h3 class="govuk-heading-s">
+                    What geographic level best describes the lowest level your dataset is available at?
+                </h3>
+            </label>
+
+            {% set regions_item = [{value: "Counties or Combined Authorities", text: "Counties or Combined Authorities", label: label_class, checked: true },
+            {value: "Local Authority Districts - inc London Borough and Metropolitan Districts - and lower", text: "Local Authority Districts - inc London Borough and Metropolitan Districts - and lower", label: label_class },
+            {value: "National", text: "National", label: label_class },
+            {value: "Provide exact location", text: "Provide exact location", label: label_class },
+            {value: "Regional", text: "Regional", label: label_class }] %}
+
+            {{ govukRadios({
+            idPrefix:"field-regions",
+            name:"regions",
+            classes:"govuk-!-margin-bottom-4 ftd-grid-2-columns",
+            hint: {
+            text: "Select a specific geographic level"
+            },
+            items: regions_item
+            }) }}
+            {% endcall %}
+
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+            {# Locations finish #}
+
+            {# Topics #}
+            {% call govukFieldset({
+            attributes:{
+            id:"categorised"
+            },
+            legend: {
+            id:"categorised",
+            text: "How is your dataset categorised?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            }) %}
+
+            <label class="govuk-label" for="field-topics">
+                <h3 class="govuk-heading-s">
+                    What topics best describe this dataset?
+                </h3>
+            </label>
+
+
+            {% set topics_item = [{value: "Accidents and incidents", text: "Accidents and incidents", label: label_class, checked: true },
+            {value: "Air quality and the environment", text: "Air quality and the environment", label: label_class },
+            {value: "Assets and asset management", text: "Assets and asset management", label: label_class },
+            {value: "Car parks", text: "Car parks", label: label_class },
+            {value: "Contraventions", text: "Contraventions", label: label_class }] %}
+            
+            {{ govukCheckboxes({
+            idPrefix:"field-topics",
+            name:"topics",
+            classes:"govuk-!-margin-bottom-4 ftd-grid-2-columns",
+            hint: {
+            text: 'Select at least one topic that this dataset relates to. Use the search box to help filter the list, if you cannot find a matching topic, select "Other" '
+            },
+            items: topics_item
+            }) }}
+
+            {% endcall %}
+
+            {# Tag transport modes #}
+            {% call govukFieldset({
+            legend: {
+            text: "Does this dataset relate to a specific transport mode? (optional)",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--s"
+            }
+            }) %}
+
+            {% set transport_modes_tag = [{value: "Bicycles", text: "Bicycles", label: label_class, checked: true },
+            {value: "Buses", text: "Buses", label: label_class },
+            {value: "Assets and asset management", text: "Assets and asset management", label: label_class },
+            {value: "Cars", text: "Cars", label: label_class },
+            {value: "Demand-responsive", text: "Demand-responsive", label: label_class }] %}
+
+            {{ govukCheckboxes({
+            idPrefix:"field-transport-modes",
+            name:"transport_modes",
+            classes:"govuk-!-margin-bottom-4 ",
+            hint: {
+            text: "Select any transport modes that this dataset specifically relates to. Use the search box to help filter the list, if you cannot find a correct transport mode select “Other”."
+            },
+            items: transport_modes_tag
+            }) }}
+
+            {% endcall %}
+
+            {# Tag road modes #}
+            {% call govukFieldset({
+            name:"road_networks",
+            legend: {
+            text: "Does this dataset relate to a specific road network? (optional)",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--s"
+            }
+            }) %}
+
+            {% set road_network_tag_list = [{value: "A roads", text: "A roads", label: label_class, checked: true },
+            {value: "B roads", text: "B roads", label: label_class },
+            {value: "C roads", text: "C roads", label: label_class },
+            {value: "Dual carriageways", text: "Dual carriageways", label: label_class },
+            {value: "Motorways", text: "Motorways", label: label_class }] %}
+
+            {{ govukCheckboxes({
+            idPrefix:"field-road-networks",
+            name:"road_networks",
+            hint: {
+            text: "Select any road networks that this dataset specifically relates to. Use the search box to help filter
+            the list, if you cannot find a correct transport mode select “Other”."
+            },
+            items: road_network_tag_list
+            }) }}
+
+            {% endcall %}
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+            {# Topics finish #}          
+            
+            {# Additional information #}
+          
+
+            {% call govukFieldset({
+            attributes:{
+            id:"additional-information"
+            },
+            legend: {
+            text: "Additional information",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            }) %}
+
+            {# Data Notes #}
+            {{ govukTextarea({
+            name: "notes",
+            id: "field-notes",
+            label: {
+            text: "Summary (optional)",
+            classes: "govuk-heading-s govuk-!-font-weight-bold govuk-!-margin-bottom-4",
+            isPageHeading: true
+            },
+            hint: {
+            text: "Provide a short summary about your dataset. Explain what it covers, how it can be used and any other important information that a person using your dataset might find helpful."
+            },
+            value:"yes",
+            attributes:{
+            rows:"5"
+            }
+            }) }}
+
+            {# Data format #}
+            {{ govukInput({
+            label: {
+            text: "What format(s) is this dataset in? (optional)",
+            classes: "govuk-heading-s govuk-!-font-weight-bold govuk-!-margin-bottom-4",
+            isPageHeading: true
+            },
+            id:"field-data-formats",
+            value:"csv",
+            name:"data_formats",
+            hint: {
+            text: "List the available format(s) for your dataset. Multiple entries must be separated by commas (for example: csv, xml, json, xls)."
+            }
+            }) }}
+
+            {# select licence #}
+            {% set licences_item = [{value:"cc-by", text:"Creative Commons Attribution"},{value:"cc-by-sa", text:"Creative Commons Attribution Share-Alike"},{value:"cc-zero", text:"Creative Commons CCZero"}] %}
+            {% set licences_item_2 = [{value:"commercial", text:"Commercial Licence"},{value:"other-closed", text:"Other (Not open)"}] %}
+
+            {% set open_licences_group = {label:"Open licences",items:licences_item}%}
+            {% set noOpen_licences_group = {label:"Non-open licences",items:licences_item_2}%}
+
+            {% set options = [
+            {
+            optGroup: open_licences_group
+            }, {
+            optGroup: noOpen_licences_group
+            }
+            ] %}
+
+            {{ extendedGovukSelect({
+            id: "field-licence-id",
+            name: "license_id",
+            hint:{
+            text:"Select the licence that is needed to access your dataset."
+            },
+            label: {
+            text: "Licence (optional)",
+            classes: "govuk-heading-s govuk-!-font-weight-bold govuk-!-margin-bottom-4",
+            isPageHeading: true
+            },
+            classes:"govuk-!-width-full",
+            initialOption: {
+            value: "",
+            text: "Please select the licence"
+            },
+            value:"other-closed",
+            options:options
+            }) }}
+
+            {{ govukInsetText({
+            html: "Licence definitions and additional information can be found at <a href=\"https://opendefinition.org/licenses/\" rel=\"noreferrer noopener\" target=\"_blank\" class=\"govuk-link\">opendefinition.org opens in a new tab</a>"
+            }) }}
+
+            {# Version number #}
+            {{ govukInput({
+            label: {
+            text: "Version number (optional)",
+            classes: "govuk-heading-s govuk-!-font-weight-bold govuk-!-margin-bottom-4",
+            isPageHeading: true
+            },
+            id:"field-version",
+            value:"1",
+            name:"version"
+            }) }}
+
+            {% endcall %}
+            {# Additional information finish #}
+            {% endcall %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

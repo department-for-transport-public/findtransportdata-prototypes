@@ -19,11 +19,10 @@ router.get('/roadmap',(req,res)=> res.render('roadmap'))
 router.get('/terms-and-conditions',(req,res)=> res.render('terms-and-conditions'))
 
 router.get('/login',(req,res)=> res.render('login'))
-
 router.get('/login/error',(req,res)=> res.render('login-errors'))
 
-
 router.get('/user/dashboard',(req,res)=> res.render('dashboard'))
+router.get('/publisher-requested', (req,res) => res.render("publisher-requested"))
 
-router.get('/publisher-requested', (req,res) => res.render("publisher-requested") )
+router.get('/dataset/edit/2',(req,res)=> res.render("dataset-edit"))
 

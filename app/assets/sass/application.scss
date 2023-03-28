@@ -6,6 +6,20 @@
 // Add extra styles here
 @import 'search-icon';
 
+@media all and (min-width: 480px) {
+    .ftd-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 4rem;
+    }
+
+    .ftd-grid-2-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
 .ftd-small-heading {
     color:$govuk-brand-colour;
     font-weight: 700;
