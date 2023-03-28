@@ -4,11 +4,8 @@
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
 
-{# {% from "components/feedbackMacro.njk" import extendedFeedback %} #}
-
 {% extends "layouts/main.html" %}
 
-{# TODO: Sort out super title & how to pass it in #}
 {% set title = "New Dataset" %}
 {% block pageTitle %}{{title}} - {{serviceName}} {% endblock %}
 
@@ -86,8 +83,8 @@
             },
             value: {
                 html: govukTag({
-                  text: "FREE"
-              }) 
+                text: "FREE"
+            }) 
             }
         },
         {
@@ -144,7 +141,7 @@
             },
             value: {
                 html: govukTag({
-                  text: "ACCIDENTS AND INCIDENTS"
+                text: "ACCIDENTS AND INCIDENTS"
                 }) 
             }
         },
@@ -300,7 +297,7 @@
             </p>
 
             <p class="govuk-body-m">
-                <a href="{{ datasetDetails.url }}" class="govuk-link">https://github.com/openraildata/reference-data</a>
+                <a href="#" class="govuk-link">https://github.com/openraildata/reference-data</a>
             </p>
 
             <p class="govuk-body-m">
@@ -324,7 +321,7 @@
             
             {{ govukButton({
                 text: "Go to the dataset",
-                href: datasetDetails.url
+                href: "#"
             }) }}
         </div>
     </div>
