@@ -15,3 +15,10 @@
 	background-color: #F8F8F8;
 }
 
+.ftd-delete-confirm-collapse {
+	max-height: 0px;
+	overflow: hidden;
+	visibility: hidden;
+	transition: max-height .25s ease-in-out;
+}
+

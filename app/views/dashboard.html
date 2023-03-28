@@ -6,17 +6,22 @@
 {% extends "layouts/main.html" %}
 
 
-{# {% set user_packages = user_info_with_datasets.datasets %} #}
+
+{% set user_packages = data.dashboard_dataset %}
 
 
 {% block pageTitle %}Your metadata entries - {{serviceName}}
 {% endblock %}
 
+{% block pageScripts %}
+  <script src="/public/javascripts/datasetDelete.js"></script>
+{% endblock %}
+
 
 {% block content %}
     <section class="module">
+       
         <div class="module-content">
-            <h1>To be completed</h1>
             <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
                 {{ title }}
             </h1>
@@ -36,15 +41,18 @@
     <section class="module govuk-body govuk-!-margin-top-5 govuk-!-margin-bottom-8">
         <p class="govuk-body govuk-!-font-weight-bold">
             Your published metadata entries 
-            <span> (1) </span>
+            <span> ({{user_packages|length}}) </span>
         </p>
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-       
+
             <div>
-                    {% set package_title = "New Dataset" %}
+                {% for package in user_packages %}
+                    {% set package_title = package.title or package.name %}
 
                     {% set summary_list = [] %}
-                   
+                    {% for key, value in package %}
+
+                        {% if key == "data_available" and value == "no" %}
                             {% set summary_list = (summary_list.push({
                                 key: {
                                     text: "Availability:"
@@ -53,7 +61,16 @@
                                     text: "Not released"
                                 }
                             }), summary_list) %}
-                           
+                            {% endif%}
+
+                            {% if key == "locations" %}
+                                {% set locationsTag %}
+                                 {% for location in package.locations %}
+                                 {{ govukTag({
+                                        text: location
+                                 }) }}
+                                {% endfor %}
+                                {% endset %}
                                 {% set summary_list = (summary_list.push({
                                     key: {
                                         classes: "govuk-!-padding-0",
@@ -61,11 +78,19 @@
                                     },
                                     value: {
                                         classes: "govuk-!-padding-0",
-                                        text: location
+                                         html: locationsTag
                                     }
                                 }), summary_list) %}
-                                
-                                    
+                                {% endif%}
+
+                               {% if key == "regions" %}
+                                    {% set regionsTag %}
+                                    {% for region in package.regions %}
+                                     {{ govukTag({
+                                        text: region
+                                    }) }}
+                                    {% endfor %}
+                                    {% endset %}
                                     {% set summary_list = (summary_list.push({
                                         key: {
                                             classes: "govuk-!-padding-0",
@@ -73,10 +98,12 @@
                                         },
                                         value: {
                                             classes: "govuk-!-padding-0",
-                                            text: region
+                                            html: regionsTag
                                         }
                                     }), summary_list) %}
-                                   
+                                    {% endif%}
+
+                                    {% if key == "time_period" %}
                                         {% set summary_list = (summary_list.push({
                                             key: {
                                                 classes: "govuk-!-padding-0",
@@ -84,10 +111,12 @@
                                             },
                                             value: {
                                                 classes: "govuk-!-padding-0",
-                                                text: "2/10/2012 - Present"
+                                                text: value
                                             }
                                         }), summary_list) %}
-                                        
+                                        {% endif%}
+
+                                        {% if key == "update_frequency" %}
                                             {% set summary_list = (summary_list.push({
                                                 key: {
                                                     classes: "govuk-!-padding-0",
@@ -95,10 +124,12 @@
                                                 },
                                                 value: {
                                                     classes: "govuk-!-padding-0",
-                                                    text: "Live"
+                                                    text: value
                                                 }
                                             }), summary_list) %}
-                                           
+                                            {% endif%}
+
+                                            {% if key == "organization" %}
                                                 {% set summary_list = (summary_list.push({
                                                     key: {
                                                         classes: "govuk-!-padding-0",
@@ -106,22 +137,17 @@
                                                     },
                                                     value: {
                                                         classes: "govuk-!-padding-0",
-                                                        text: "Basemap"
+                                                        text: value.title
                                                     }
                                                 }), summary_list) %}
-                                              
+                                                {% endif%}
+
+                                            {% endfor %}
 
                                             <div class="govuk-grid-row">
                                                 <div class="govuk-grid-column-two-thirds">
                                                     <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
-                                                        {% if package.private %}
-                                                            <span class="dataset-private label label-inverse">
-                                                                <i class="fa fa-lock"></i>
-                                                                Private
-                                                            </span>
-                                                        {% endif %}
                                                         <a href="#" class="govuk-link govuk-link--no-visited-state">{{package_title}}</a>
-
                                                     </h3>
                                                     {{ govukSummaryList({
                                                             classes: 'govuk-summary-list--no-border',
@@ -136,11 +162,15 @@
                                                                 }) }}
                                                             </li>
                                                         {% endif %}
+                                                        {% if package.topics %}
+                                                            {% for topic in package.topics %}
                                                                 <li>
                                                                     {{ govukTag({
-                                                                        text: "ACCIDENTS AND INCIDENTS"
+                                                                        text: topic
                                                                     }) }}
-                                                                </li>                                                         
+                                                                </li>
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
                                                 <div class="govuk-grid-column-one-third">
@@ -163,7 +193,7 @@
                                                             attributes: {
                                                                     'data-module':"govuk-button"
                                                             },
-                                                            href: "#" + package.id
+                                                            href: "/dataset/edit/2" 
                                                         }) }}
                                                         {{ govukButton({
                                                             name:"openDeleteConfirm",
@@ -177,7 +207,7 @@
                                             </div>
                                             <div class="govuk-grid-row govuk-body">
                                             <div class="govuk-grid-column-full">
-                                                <div id="delete-confirm">
+                                                <div class="ftd-delete-confirm-collapse" id="delete-confirm-{{package.id}}">
                                                 <div class="ftd-delete-confirm-container govuk-!-padding-5 govuk-!-margin-top-7 govuk-!-margin-bottom-5">
                                                     <form action="#" method="post"  name="confirm-dataset-delete-form" class="confirm-delete-form">
                                                    {{ govukInput({
@@ -213,8 +243,12 @@
                                                 </div>
                                             </div>
                                             </div>
-                                            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">   
+                                            <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+                                            {# package-item finish #}
+
+                                        {% endfor %}
                                     </div>
+                                    {# package-list finish #}
                             </section>
                             <section class="govuk-!-margin-bottom-8">
                                 <h3 class="govuk-heading-m">

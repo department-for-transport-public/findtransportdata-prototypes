@@ -57,13 +57,6 @@
                 Enter the sign in details provided to you.
             </span>
 
-             {% if username_error or password_error %}
-                {{ govukErrorSummary({
-                    titleText: "There is a problem",
-                    errorList : username_password_errors
-                }) }}
-            {% endif %}
-
             {{ govukInput({
                     label: {
                     text: "Username",
