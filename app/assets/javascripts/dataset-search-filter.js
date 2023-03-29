@@ -1,39 +1,3 @@
-    var filterFacetTags = document.getElementsByClassName("facet-tag__remove")
-
-    for (filterFacet of filterFacetTags) {
-        filterFacet.addEventListener("click", function(event) {
-            var elementId = event.currentTarget.dataset.value.toLowerCase();
-            var filterElement = document.getElementById(elementId);
-            if (filterElement.type === 'checkbox') {
-                filterElement.checked = !filterElement.checked;
-            } 
-            else if (filterElement.type === 'text' || filterElement.type === 'search' || filterElement.type === 'date') {
-                filterElement.value = "";
-            }
-            filterElement.form.submit();
-        });
-    }
-
-    const filterApplied = document.getElementById("remove_filters_link") || false;
-    if (filterApplied){
-        document.getElementById("remove_filters_link").addEventListener("click", function() {
-            event.preventDefault();
-            for (filterFacet of filterFacetTags) {
-                var elementId = filterFacet.dataset.value.toLowerCase();
-                var filterElement = document.getElementById(elementId);
-                if (filterElement.type === 'checkbox') {
-                    filterElement.checked = !filterElement.checked;
-                } 
-                else if (filterElement.type === 'text' || filterElement.type === 'search' || filterElement.type === 'date') {
-                    filterElement.value = "";
-                }
-            }
-            document.getElementById("search-form").submit();
-        });
-    }
-   
-
-
     const debounce = (cb) => {
         if (timeOutId) clearTimeout(timeOutId)
         timeOutId = setTimeout(() => cb(), 500);

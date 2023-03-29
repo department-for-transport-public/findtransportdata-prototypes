@@ -76,7 +76,7 @@
         name: "selectedTopics",
         classes:"filter-checkboxes",
         items: topics,
-        values: selectedTopics
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -115,7 +115,7 @@
         name: "selectedTransportModes",
         classes:"filter-checkboxes",
         items: transportModes,
-        values: selectedTransportModes
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -155,7 +155,7 @@
         name: "selectedRoadNetworks",
         classes:"filter-checkboxes",
         items: roadNetworks,
-        values: selectedRoadNetworks
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -195,7 +195,7 @@
         name: "selectedLocations",
         classes:"filter-checkboxes",
         items: locations,
-        values: selectedLocations
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -235,7 +235,7 @@
         name: "selectedRegions",
         classes:"filter-checkboxes",
         items: geographicalRegions,
-        values: selectedRegions
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -313,7 +313,7 @@
         name: "selectedUpdateFrequencies",
         classes:"filter-checkboxes ",
         items: updateFrequencies,
-        values: selectedUpdateFrequencies
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -353,7 +353,7 @@
         name: "selectedOrganisations",
         classes:"filter-checkboxes",
         items: organisations,
-        values: selectedOrganisations
+        values: ""
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -396,7 +396,7 @@ action="/browse/filter"
         },
             id: "search",
             name:"q",
-            value: paramValues.q ,
+            value: "" ,
             classes:"govuk-input govuk-input--width-20 nap-search-text govuk-!-margin-bottom-0",
             type:"search",
             attributes: {
@@ -531,7 +531,7 @@ action="/browse/filter"
                             }), summary_list) %}
                             {% endif%}
 
-                            {# Dataset locations #}
+                        {# Dataset locations #}
                             {% if key == "locations" %}
                                 {% set locationsTag %}
                                 {% for location in package.locations %}

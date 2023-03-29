@@ -58,7 +58,7 @@
 
 {% set topicCheckbox %}
 
-    {% set topics = [{id:"1", value:"topic1",text:"Accidents and incidents",label:{classes:"ftd-margin-bottom-12"} },{id:"2", value:"topic2",text:"Air quality and the environment",label:{classes:"ftd-margin-bottom-12"} } ] %}
+    {% set topics = [{id:"1", value:"topic1",text:"Accidents and incidents",label:{classes:"ftd-margin-bottom-12"},checked:true },{id:"2", value:"topic2",text:"Air quality and the environment",label:{classes:"ftd-margin-bottom-12"} } ] %}
     <div class="app-c-option-select__filter govuk-!-margin-bottom-6">   
         {{ govukInput({
             label: {
@@ -74,8 +74,7 @@
     {{ govukCheckboxes({
         name: "selectedTopics",
         classes:"filter-checkboxes",
-        items: topics,
-        values: selectedTopics
+        items: topics
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -114,7 +113,7 @@
         name: "selectedTransportModes",
         classes:"filter-checkboxes",
         items: transportModes,
-        values: selectedTransportModes
+        values: "Bicycles"
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -154,7 +153,7 @@
         name: "selectedRoadNetworks",
         classes:"filter-checkboxes",
         items: roadNetworks,
-        values: selectedRoadNetworks
+        values: "Aroads"
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -177,7 +176,7 @@
 
 {% set locationCheckbox %}
 
-    {% set locations = [{id:"1", value:"East_Midlands_England", text:"East Midlands England"}, {id:"2", value:"East_of_England", text:"East of England"}] %}
+    {% set locations = [{id:"1", value:"East_Midlands_England", text:"East Midlands England", checked:true}, {id:"2", value:"East_of_England", text:"East of England"}] %}
     <div class="app-c-option-select__filter govuk-!-margin-bottom-6">   
         {{ govukInput({
             label: {
@@ -193,8 +192,7 @@
     {{ govukCheckboxes({
         name: "selectedLocations",
         classes:"filter-checkboxes",
-        items: locations,
-        values: selectedLocations
+        items: locations
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -217,7 +215,7 @@
 
 {% set geographicalRegionCheckbox %}
 
-    {% set geographicalRegions = [{id:"1", value:"Counties_or_Combined_Authorities", text:"Counties or Combined Authorities"},{id:"2", value:"National", text:"National"} ] %}
+    {% set geographicalRegions = [{id:"1", value:"Counties_or_Combined_Authorities", text:"Counties or Combined Authorities", checked:true},{id:"2", value:"National", text:"National"} ] %}
     <div class="app-c-option-select__filter govuk-!-margin-bottom-6">   
         {{ govukInput({
             label: {
@@ -233,8 +231,7 @@
     {{ govukCheckboxes({
         name: "selectedRegions",
         classes:"filter-checkboxes",
-        items: geographicalRegions,
-        values: selectedRegions
+        items: geographicalRegions
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -263,7 +260,7 @@
         <div id="event-name-hint" class="govuk-hint">
             For example 05/11/2011
         </div>
-        <input id="startdate" class="govuk-input" type="date" name="startDate" value={{startDate}}>
+        <input id="startdate" class="govuk-input" type="date" name="startDate" value="2023-03-28">
     </div>
     <div class="govuk-form-group">
         <label class="govuk-label" for="time-period-start-filter">
@@ -272,7 +269,7 @@
         <div id="event-name-hint" class="govuk-hint">
             For example 05/12/2011
         </div>
-        <input id="enddate" class="govuk-input" type="date" name="endDate" value={{endDate}}>
+        <input id="enddate" class="govuk-input" type="date" name="endDate" value="2023-03-29">
     </div>
     <div class="govuk-form-group">
         {{
@@ -312,7 +309,7 @@
         name: "selectedUpdateFrequencies",
         classes:"filter-checkboxes ",
         items: updateFrequencies,
-        values: selectedUpdateFrequencies
+        values: "Live"
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -352,7 +349,7 @@
         name: "selectedOrganisations",
         classes:"filter-checkboxes",
         items: organisations,
-        values: selectedOrganisations
+        values: "Basemap"
         }) 
     }}
     <div class="govuk-form-group govuk-!-margin-top-5">
@@ -395,7 +392,7 @@ action="/browse"
         },
             id: "search",
             name:"q",
-            value: paramValues.q ,
+            value: "" ,
             classes:"govuk-input govuk-input--width-20 nap-search-text govuk-!-margin-bottom-0",
             type:"search",
             attributes: {
