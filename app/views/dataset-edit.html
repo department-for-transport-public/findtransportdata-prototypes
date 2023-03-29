@@ -16,6 +16,10 @@
 
 {%- from "components/select/macro.njk" import extendedGovukSelect -%}
 
+{% block pageScripts %}
+  <script src="/public/javascripts/contactDetail.js"></script>
+{% endblock %}
+
 
 {% block content %}
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">Create a metadata entry so people can find your dataset</h1>
@@ -49,7 +53,7 @@
     {# Side List finish #}
 
     <div class="govuk-grid-column-two-thirds">
-        <form action={{formAction}} method="post">
+        <form action="#" method="post">
             {% call govukFieldset({
                 classes: "govuk-!-margin-bottom-6 ",
                 attributes:{
@@ -89,7 +93,7 @@
             },
             id: "field-url",
             name: "url",
-            value:form_data.url
+            value:"http://"
             }) }}
             {% endset %}
             <div class="govuk-form-group">
@@ -619,7 +623,65 @@
 
             {% endcall %}
             {# Additional information finish #}
+
+            {# Contact information #}
+
+            {% call govukFieldset({
+            attributes:{ id:"contact-details"},
+            legend: {
+            id:"contact-details",
+            text: "Contact details",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+            }) %}
+            <div id="field-contact-hint" class="govuk-hint">
+                If you would like people to get in contact with you about your dataset, please provide the contact
+                details of the person in charge of your dataset.
+            </div>
+
+            {% set label_html%}
+            <h3 class="govuk-heading-s"> Contact name
+                <span style="visibility: hidden"> (optional) </span>
+            </h3>
+            {% endset%}
+            {{ govukInput({
+            id:"field-author",
+            value:"Asim Iqbal",
+            name:"author",
+            label: {
+            html: label_html,
+            isPageHeading: true
+            }
+            }) }}
+
+            
+            {% set label_html%}
+            <h3 class="govuk-heading-s"> Contact email
+                <span style="visibility: hidden"> (optional) </span>
+            </h3>
+            {% endset %}
+
+            {{ govukInput({
+            label: {
+            html: label_html,
+            isPageHeading: true
+            },
+            id:"field-author-email",
+            value:"mohammad.asim.iqbal.cs@gmail.com",
+            name:"author_email"
+            }) }}
+
             {% endcall %}
+            {# Contact information finish #}
+            
+            {% endcall %}
+
+            {{ govukButton({
+                id:"publish-metadata",
+                text: "Publish metadata entry",
+                type:"submit"
+            }) }}
         </form>
     </div>
 </div>
