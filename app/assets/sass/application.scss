@@ -10,3 +10,17 @@
     color:$govuk-brand-colour;
     font-weight: 700;
 }
+
+.ftd-inline-block {
+    display: inline-block;
+}
+
+.ftd-min-w-10 {
+    min-width: 10em;
+}
+
+.ftd-pagination-center {
+    display: flex;
+    justify-content:center !important;
+    align-items:center !important
+}
