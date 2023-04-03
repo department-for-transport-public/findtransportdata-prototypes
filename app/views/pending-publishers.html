@@ -6,8 +6,13 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
+
 {% set title = "Manage organisations & publisher applications" %}
 {% block pageTitle %}{{title}} - {{serviceName}}{% endblock %}
+
+{% block pageScripts %}
+  <script src="/public/javascripts/editPendingApplication.js"></script>
+{% endblock %}
 
 {% set sortFieldItems = [{value:"", text:"Select option"},
                         {value:"createdAt ASC", text:"Oldest application", selected:true},
@@ -21,6 +26,29 @@
                                 admin_notified: true,
                                 status: 'REJECTED',
                                 reason: 'Organisation does not appear to be transport-related'}]%}
+
+{% set pendingApplications = [{id: 'bf69ea75-de1b-4120-afc8-15bdd8c021de',
+      full_name: 'asim',
+      email_address: 'asim@gmail.com',
+      organisation_name: 'Super Transporters 12',
+      admin_notified: true,
+      status: 'PENDING',
+      reason: '',
+      createdAt: "2023-03-16T07:21:26.830Z",
+      updatedAt: "2023-03-16T07:21:26.830Z"
+    },
+    {id: '92fe90d1-f438-40a7-833b-67dbe791f535',
+      full_name: 'asim',
+      email_address: 'asim21@gmail.com',
+      organisation_name: 'Super Transporters 12',
+      admin_notified: true,
+      status: 'PENDING',
+      reason: '',
+      createdAt: "2023-03-16T07:23:53.728Z",
+      updatedAt: "2023-03-16T07:23:53.728Z"
+    }]%}
+
+
 
 {# START: breadcrumbs #}
 {% block breadcrumbs %}
@@ -70,9 +98,102 @@
     <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
 
-                <!-- {% for pendingApplication in pendingApplications %}
-                    {% include "admin/manage-publishers/publisher-applications.njk" %}
-                {% endfor %} -->
+{% for pendingApplication in pendingApplications %}
+
+{% set summary_list = [] %}
+
+{% set summary_list = (summary_list.push({
+            key: {
+                classes: "govuk-!-padding-0",
+                text: "Name:"
+            },
+            value: {
+            text: pendingApplication.full_name
+            }
+            }), summary_list) %}
+
+{% set summary_list = (summary_list.push({
+            key: {
+                classes: "govuk-!-padding-0",
+                text: "Email Address:"
+            },
+            value: {
+            text: pendingApplication.email_address
+            }
+            }), summary_list) %}
+
+            {% set organisationHtml %}
+
+            <span>
+                <span name="organisation_name_{{pendingApplication.id}}" value={{pendingApplication.organisation_name}}>
+                    {{pendingApplication.organisation_name}}
+                </span>
+                <div name="organisation_name_{{pendingApplication.id}}" style="display:none">
+                      {{ govukSelect({
+                        formGroup:{
+                            classes:"ftd-inline-block"
+                        },
+                        classes:"ftd-min-w-10  ",
+                       items: [
+                          {
+                            value: "basemap",
+                            text: "basemap",
+                            selected: true
+                          }
+                        ]
+                    }) }}
+                    {{ govukButton({
+                        text: "Save",
+                        attributes: {
+                  'id': "update_" + pendingApplication.id
+                }
+                    }) }}
+                </div>
+            </span>
+            
+            {% endset %}
+
+{% set summary_list = (summary_list.push({
+            key: {
+                classes: "govuk-!-padding-0",
+                text: "Organisation:"
+            },
+            value: {
+            html: organisationHtml 
+            }
+            }), summary_list) %}
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+<div class="govuk-grid-row" >
+    <div class="govuk-grid-column-full" >
+        {{ govukSummaryList({
+            classes: 'govuk-summary-list--no-border',
+            rows: summary_list
+        }) }}
+        {{ govukButton({
+            text: "Edit",
+            type:"button",
+            name:   "editPendingApplications",
+            value:pendingApplication.id
+        }) }}
+        {{ govukButton({
+            text: "Approve",
+            type:"button",
+            name: "approvePendingApplications_"+ pendingApplication.id
+
+        }) }}
+        {{ govukButton({
+            text: "Reject",
+            type:"button",
+            classes: "govuk-button--warning",
+            href:"/admin/manage-publishers/reject/" + pendingApplication.id,
+            name:  "rejectPendingApplications_" + pendingApplication.id
+        }) }}
+    </div>
+</div>
+
+ {% endfor %}
 
                 {{ govukButton({
         text: "Download applications report",
