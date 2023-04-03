@@ -1,0 +1,153 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "layouts/main.html" %}
+
+
+
+{% block pageTitle %}Sign in - {{serviceName}}
+{% endblock %}
+
+{# START: breadcrumbs #}
+{% block breadcrumbs %}
+    {{ govukBreadcrumbs({
+    items: [
+        {
+        text: "Home",
+        href: "/"
+        },
+        {
+        text: "Sign in",
+        href: "/login"
+        }
+    ]
+    }) }}
+{% endblock %}
+{# END: breadcrumbs #}
+
+{% block content %}
+        <div class="govuk-form-group">
+    
+            <div class="govuk-grid-row">
+                {{ govukErrorSummary({
+                    titleText: "There is a problem",
+                    errorList : [{text:"Organisation name should not be empty.", href:"#"}, { text:"Full name should not be empty." , href:"#"}],
+                    classes:"govuk-!-width-two-thirds"
+                }) }}
+            </div>
+
+    <form action="#"  method="post">
+
+        <div class="govuk-form-group govuk-!-margin-top-6 ">
+            {% call govukFieldset({
+            classes:"govuk-!-padding-bottom-3",
+            legend: {
+                html: "<span class=\"govuk-caption-l\" style=\"color: #1d70b8; font-weight: 700;\">Sign in to create a metadata entry</span>
+                    <h1 class=\"govuk-heading-xl govuk-!-margin-bottom-6\">
+                        Sign in to your publisher account
+                    </h1>",
+                classes: "govuk-fieldset__legend--l ",
+                isPageHeading: true
+            }
+            }) %}
+            <span class="govuk-caption-l">
+                Enter the sign in details provided to you.
+            </span>
+
+            {{ govukInput({
+                    label: {
+                    text: "Username",
+                    classes: "govuk-label--l",
+                    isPageHeading: true
+                    },
+                    id: "username",
+                    name: "username",
+                    classes: "govuk-input--error" 
+                }) }}
+
+            {{ govukInput({
+                    label: {
+                    text: "Password",
+                    classes: "govuk-label--l",
+                    isPageHeading: true
+                    },
+                    id: "password",
+                    name: "password",
+                    type:"password",
+                    classes: "govuk-input--error" 
+                    }) }}
+            {% endcall %}
+        </div>
+        {{ govukButton({
+            text: "Sign in",
+            type: "submit"
+        }) }}
+    </form>
+    <form action="#" method="post">
+        <div class="govuk-form-group govuk-!-margin-top-6 ">
+            {% call govukFieldset({
+            classes:"govuk-!-padding-bottom-3",
+            legend: {
+                html: "<h1 class=\"govuk-heading-xl govuk-!-margin-bottom-6\">
+                        Request an organisation or publisher account
+                    </h1>",
+                classes: "govuk-fieldset__legend--l ",
+                isPageHeading: true
+            }
+            }) %}
+                <span class="govuk-caption-l">
+                    Our service supports all transport-related data throughout the United Kingdom and is aimed at 
+                    legitimate data publishers where typically data is gathered from all Government departments, councils, 
+                    authorities, regional agencies and public transport organisations.
+                    <p>We are unable to authorise free email accounts such as those provided by Gmail, Yahoo and Hotmail, as all email domains must link to a trusted and verifiable organisation.</p>     
+                </span>
+                    
+                {{ govukInput({
+                        label: {
+                        text: "Full name",
+                        classes: "govuk-label--l",
+                        isPageHeading: true
+                        },
+                        errorMessage: {text:"Full name should not be empty."},
+                        value:form_data.full_name,
+                        id: "field-full_name",
+                        name: "full_name",
+                        classes: "govuk-input--error" 
+                    }) }} 
+                
+                {{ govukInput({
+                        label: {
+                        text: "Email address",
+                        classes: "govuk-label--l",
+                        isPageHeading: true
+                        },
+                        errorMessage: { text:"Email not valid" },
+                        value:form_data.email_address,
+                        id: "field-email_address",
+                        name: "email_address",
+                        classes: "govuk-input--error" 
+                    }) }}
+
+                {{ govukInput({
+                        label: {
+                        text: "Organisation name",
+                        classes: "govuk-label--l",
+                        isPageHeading: true
+                        },
+                        errorMessage: { text:"Organisation name should not be empty." },
+                        value:form_data.organisation_name,
+                        id: "field-organisation_name",
+                        name: "organisation_name",
+                        classes: "govuk-input--error" 
+                    }) }}
+            {% endcall %}
+        </div>
+        {{ govukButton({
+            text: "Submit",
+            type: "submit"
+        }) }}
+    </form>
+{% endblock %}
