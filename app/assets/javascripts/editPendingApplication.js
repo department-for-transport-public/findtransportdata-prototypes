@@ -19,27 +19,18 @@ for (const editButtonElement of editButtonElements) {
   const organisationNameListElements = document.getElementsByName(
     `organisation_name_${editButtonElement.value}`
   );
-  let organisationFieldText = organisationNameListElements[0].innerText;
-  let organisationFieldValue =
-    organisationNameListElements[0].getAttribute("value");
 
   const saveOption = document.getElementById(saveButtonId);
   saveOption.addEventListener("click", function () {
-    organisationNameListElements[0].innerText = organisationFieldText;
-    organisationNameListElements[0].setAttribute(
-      "value",
-      organisationFieldValue
-    );
-
-    toggelOrganisationField(organisationNameListElements, editButtonElement);
+    toggleOrganisationField(organisationNameListElements, editButtonElement);
   });
 
   editButtonElement.addEventListener("click", function () {
-    toggelOrganisationField(organisationNameListElements, this);
+    toggleOrganisationField(organisationNameListElements, this);
   });
 }
 
-const toggelOrganisationField = (organisationNameListElements, button) => {
+const toggleOrganisationField = (organisationNameListElements, button) => {
   const approveButton = document.getElementsByName(
     `approvePendingApplications_${button.value}`
   )[0];
