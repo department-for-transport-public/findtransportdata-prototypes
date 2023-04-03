@@ -20,6 +20,7 @@ router.get('/terms-and-conditions',(req,res)=> res.render('terms-and-conditions'
 router.get('/browse/filter',(req,res)=> res.render('browseFilter'))
 router.get('/dataset/id_1', (req,res) => res.render("dataset-details") )
 
+router.get('/admin/dashboard',(req,res)=> res.render('admin-dashboard'))
 router.get('/login',(req,res)=> res.render('login'))
 router.get('/login/error',(req,res)=> res.render('login-errors'))
 
