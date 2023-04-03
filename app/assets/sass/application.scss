@@ -6,6 +6,20 @@
 // Add extra styles here
 @import 'search-icon';
 
+@media all and (min-width: 480px) {
+    .ftd-sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 4rem;
+    }
+
+    .ftd-grid-2-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
 .ftd-small-heading {
     color:$govuk-brand-colour;
     font-weight: 700;
@@ -24,3 +38,14 @@
     justify-content:center !important;
     align-items:center !important
 }
+.ftd-delete-confirm-container {
+	background-color: #F8F8F8;
+}
+
+.ftd-delete-confirm-collapse {
+	max-height: 0px;
+	overflow: hidden;
+	visibility: hidden;
+	transition: max-height .25s ease-in-out;
+}
+
