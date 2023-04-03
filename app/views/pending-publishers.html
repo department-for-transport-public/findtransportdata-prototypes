@@ -187,8 +187,11 @@
             text: "Reject",
             type:"button",
             classes: "govuk-button--warning",
-            href:"/admin/manage-publishers/reject/" + pendingApplication.id,
-            name:  "rejectPendingApplications_" + pendingApplication.id
+            id: "rejectButton_" + pendingApplication.id,
+            name:  "rejectPendingApplications_" + pendingApplication.id,
+            attributes: {
+              "data-id": pendingApplication.id
+            }
         }) }}
     </div>
 </div>

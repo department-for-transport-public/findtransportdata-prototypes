@@ -1,6 +1,16 @@
 
 
+function handleRejectButtonClick(event) {
+    const id = event.target.getAttribute("data-id");
+    window.location.href = "/admin/manage-publishers/reject/" + id;
+}
+
+document.querySelectorAll('[name^="rejectPendingApplications_"]').forEach(function(button) {
+    button.addEventListener("click", handleRejectButtonClick);
+});
+
 const editButtonElements = document.getElementsByName("editPendingApplications");
+
 
 
 for (const editButtonElement of editButtonElements) {
