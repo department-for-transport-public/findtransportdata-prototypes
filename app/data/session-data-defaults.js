@@ -216,6 +216,7 @@ module.exports = {
     "relationships_as_subject": [],
     "relationships_as_object": []
   }]
+
 }
 
 
