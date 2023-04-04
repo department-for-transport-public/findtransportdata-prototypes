@@ -3,6 +3,8 @@
 // https://prototype-kit.service.gov.uk/docs/create-routes
 //
 
+// 
+
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
@@ -17,3 +19,15 @@ router.get('/roadmap',(req,res)=> res.render('roadmap'))
 router.get('/terms-and-conditions',(req,res)=> res.render('terms-and-conditions'))
 router.get('/admin/manage-publishers/pending',(req,res)=>res.render('pending-publishers'))
 router.get('/admin/manage-publishers/reject/:id',(req,res)=>res.render('rejection-form'))
+router.get('/browse/filter',(req,res)=> res.render('browseFilter'))
+router.get('/dataset/id_1', (req,res) => res.render("dataset-details") )
+
+router.get('/admin/dashboard',(req,res)=> res.render('admin-dashboard'))
+router.get('/login',(req,res)=> res.render('login'))
+router.get('/login/error',(req,res)=> res.render('login-errors'))
+
+router.get('/user/dashboard',(req,res)=> res.render('dashboard'))
+router.get('/publisher-requested', (req,res) => res.render("publisher-requested"))
+
+router.get('/dataset/edit/2',(req,res)=> res.render("dataset-edit"))
+
