@@ -226,7 +226,23 @@ module.exports = {
     reason: '',
     createdAt: "2023-03-16T07:23:53.728Z",
     updatedAt: "2023-03-16T07:23:53.728Z"
-  }]
+  }],
+  organisationList : [
+    {value: "basemap",text:"Basemap", selected:true},
+    {value: "birmingham-city-council",text:"Birmingham City Council"},
+   { value: "blackpool-council",text:"Blackpool Council"},
+    {value: "bristol-city-council",text:"Bristol City Council"},
+    {value: "calderdale-council",text:"Calderdale Council"},
+    {value: "cambridge-city-council",text:"Cambridge City Council"},
+    {value: "cambridgeshire-county-council",text:"Cambridgeshire County Council"},
+    {value: "camden-council",text:"Camden Council"},
+    {value: "chordant",text:"Chordant"},
+    {value: "citi-logik",text:"Citi Logik"},
+    {value: "city-of-bradford-metropolitan-district-council",text:"City of Bradford Metropolitan District Council"},
+    {value: "city-of-york-council",text:"City of York Council"},
+    {value: "dvla",text:"DVLA"},
+    {value: "dvsa",text:"DVSA"},
+    {value: "department-for-business-energy-industrial-strategy",text:"Department for Business, Energy and Industrial Strategy"}]
 }
 
 

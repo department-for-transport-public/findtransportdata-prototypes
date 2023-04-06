@@ -100,22 +100,14 @@
                 {{pendingApplication.organisation_name}}
               </span>
               <div name="organisation_name_{{pendingApplication.id}}" style="display:none">
+                <div class="ftd-flex">
                 {{ govukSelect({
                   id:"organisation_selection_" + pendingApplication.id,
                   formGroup:{
                     classes:"ftd-inline-block"
                   },
                   classes:"ftd-min-w-10",
-                  items: [
-                  {
-                    value:"Super Transporters 12",
-                    text:"Super Transporters 12",
-                    selected:true
-                  },
-                  {
-                    value: "basemap",
-                    text: "basemap"
-                  }]
+                  items: data['organisationList']
                 }) }}
                 
                 {{ govukButton({
@@ -124,7 +116,7 @@
                   'id': "update_" + pendingApplication.id
                 }
                 }) }}
-              
+              </div>
               </div>
             </span>
 
