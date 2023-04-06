@@ -215,8 +215,18 @@ module.exports = {
     "groups": [],
     "relationships_as_subject": [],
     "relationships_as_object": []
+  }],
+  publishersListAfterApproval : [
+  {id: '92fe90d1-f438-40a7-833b-67dbe791f535',
+    full_name: 'asim',
+    email_address: 'asim21@gmail.com',
+    organisation_name: 'Super Transporters 12',
+    admin_notified: true,
+    status: 'PENDING',
+    reason: '',
+    createdAt: "2023-03-16T07:23:53.728Z",
+    updatedAt: "2023-03-16T07:23:53.728Z"
   }]
-
 }
 
 

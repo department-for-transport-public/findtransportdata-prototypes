@@ -1,0 +1,216 @@
+{% extends "layouts/main.html" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+
+{% set title = "Manage organisations & publisher applications" %}
+{% block pageTitle %}{{title}} - {{serviceName}}{% endblock %}
+
+{% block pageScripts %}
+  <script src="/public/javascripts/editPendingApplication.js"></script>
+{% endblock %}
+
+{% set sortFieldItems = [{value:"", text:"Select option"},
+                        {value:"createdAt ASC", text:"Oldest application", selected:true},
+                        {value: 'organisation_name ASC', text: 'Organisation name'},
+                        {text: 'Publisher name', value: 'full_name ASC'}] %}
+
+{% set pendingApplicationsAfterApproval = data['publishersListAfterApproval']%}
+
+{# START: breadcrumbs #}
+{% block breadcrumbs %}
+    {{ govukBreadcrumbs({
+    items: [
+        {
+        text: "Main dashboards",
+        href: "/admin/dashboard"
+        },
+        {
+        html: "<span class=\"govuk-!-font-weight-bold\">Organisation & publisher applications</span>",
+        href: "/admin/manage-publishers/pending"
+        }
+    ]
+    }) }}
+{% endblock %}
+{# END: breadcrumbs #}
+
+{% block content %}
+  <section class="module">
+    <form action="/admin/manage-publishers/pending" method="get" id="pending-forms">
+
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-9">
+            {{ title }}
+        </h1>
+
+        {{ govukSelect({
+            id: "sort-input",
+            name: "sort",
+            label: {
+            text: "Sort by",
+                classes:"govuk-!-margin-right-3 ftd-inline"
+            },
+            formGroup:{
+                classes:"ftd-inline-block"
+            },
+            classes:"ftd-min-w-10  ",
+            items: sortFieldItems
+        }) }}
+
+        {{ govukButton({
+            text: "Sort Results",
+            type:"submit"
+        }) }}
+    </form>
+    
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        {% for pendingApplication in pendingApplicationsAfterApproval %}
+
+            {% set summary_list = [] %}
+
+            {% set summary_list = (summary_list.push({
+              key: {
+                classes: "govuk-!-padding-0",
+                text: "Name:"
+              },
+              value: {
+                text: pendingApplication.full_name
+              }
+            }), summary_list) %}
+
+            {% set summary_list = (summary_list.push({
+              key: {
+                classes: "govuk-!-padding-0",
+                text: "Email Address:"
+              },
+              value: {
+                text: pendingApplication.email_address
+              }
+            }), summary_list) %}
+
+            {% set organisationHtml %}
+
+            <span>
+              <span name="organisation_name_{{pendingApplication.id}}" value={{pendingApplication.organisation_name}}>
+                {{pendingApplication.organisation_name}}
+              </span>
+              <div name="organisation_name_{{pendingApplication.id}}" style="display:none">
+                {{ govukSelect({
+                  id:"organisation_selection_" + pendingApplication.id,
+                  formGroup:{
+                    classes:"ftd-inline-block"
+                  },
+                  classes:"ftd-min-w-10",
+                  items: [
+                  {
+                    value:"Super Transporters 12",
+                    text:"Super Transporters 12",
+                    selected:true
+                  },
+                  {
+                    value: "basemap",
+                    text: "basemap"
+                  }]
+                }) }}
+                
+                {{ govukButton({
+                text: "Save",
+                attributes: {
+                  'id': "update_" + pendingApplication.id
+                }
+                }) }}
+              
+              </div>
+            </span>
+
+            {% endset %}
+
+            {% set summary_list = (summary_list.push({
+              key: {
+                classes: "govuk-!-padding-0",
+                text: "Organisation:"
+              },
+              value: {
+                html: organisationHtml
+              }
+            }), summary_list) %}
+
+          <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+          <div class="govuk-grid-row" >
+            <div class="govuk-grid-column-full" >
+              {{ govukSummaryList({
+                  classes: 'govuk-summary-list--no-border',
+                  rows: summary_list
+              }) }}
+              {{ govukButton({
+                  text: "Edit",
+                  type: "button",
+                  name: "editPendingApplications",
+                  value: pendingApplication.id
+              }) }}
+              {{ govukButton({
+                  text: "Approve",
+                  type: "button",
+                  name: "approvePendingApplications_"+ pendingApplication.id
+
+              }) }}
+              {{ govukButton({
+                  text: "Reject",
+                  type: "button",
+                  classes: "govuk-button--warning",
+                  id: "rejectButton_" + pendingApplication.id,
+                  name: "rejectPendingApplications_" + pendingApplication.id,
+                  attributes: {
+                    "data-id": pendingApplication.id
+                  }
+              }) }}
+            </div>
+          </div>
+
+        {% endfor %}
+
+        {{ govukButton({
+          text: "Download applications report",
+          type:"button",
+          classes:"govuk-!-margin-top-8",
+          attributes: {
+            'id': "download_Csv"
+          }
+        }) }}
+      </div>
+    </div>
+  </section>
+  <div class="govuk-grid-row">
+
+    {{ govukPagination({
+        classes:"ftd-pagination-center govuk-!-margin-bottom-0 govuk-!-margin-top-8",
+        previous: {
+          href: "#"
+        },
+        next: {
+          href: "#"
+        },
+        items: [
+          {
+            number: 1,
+            href: "#"
+          },
+          {
+            number: 2,
+            current: true,
+            href: "#"
+          },
+          {
+            number: 3,
+            href: "#"
+          }
+        ]
+      }) }}
+  </div>
+{% endblock %}

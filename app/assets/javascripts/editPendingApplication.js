@@ -42,6 +42,14 @@ for (const editButtonElement of editButtonElements) {
   editButtonElement.addEventListener("click", function () {
     toggleOrganisationField(organisationNameListElements, this);
   });
+
+  const approveButton = document.getElementsByName(
+    `approvePendingApplications_${editButtonElement.value}`
+  )[0];
+
+  approveButton.addEventListener("click", function () {
+    window.location.href = '/admin/manage-publishers/success'
+  });
 }
 
 const toggleOrganisationField = (organisationNameListElements, button) => {
