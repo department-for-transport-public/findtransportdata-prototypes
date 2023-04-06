@@ -20,8 +20,22 @@ for (const editButtonElement of editButtonElements) {
     `organisation_name_${editButtonElement.value}`
   );
 
+  let organisationFieldText = organisationNameListElements[0].innerText
+  let organisationFieldValue = organisationNameListElements[0].getAttribute('value') 
+
+  const organisationSelect =  document.getElementById(`organisation_selection_${editButtonElement.value}`)
+  organisationSelect.addEventListener('change', function(event){
+      const { options, selectedIndex } = event.target
+      const text = options[selectedIndex].text;
+      organisationFieldText = text
+      organisationFieldValue = text
+  })
+
   const saveOption = document.getElementById(saveButtonId);
   saveOption.addEventListener("click", function () {
+    organisationNameListElements[0].innerText = organisationFieldText
+    organisationNameListElements[0].setAttribute('value', organisationFieldValue)
+
     toggleOrganisationField(organisationNameListElements, editButtonElement);
   });
 

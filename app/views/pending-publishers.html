@@ -122,6 +122,7 @@
               </span>
               <div name="organisation_name_{{pendingApplication.id}}" style="display:none">
                 {{ govukSelect({
+                  id:"organisation_selection_" + pendingApplication.id,
                   formGroup:{
                     classes:"ftd-inline-block"
                   },
