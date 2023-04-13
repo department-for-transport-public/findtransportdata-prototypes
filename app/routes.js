@@ -20,6 +20,7 @@ router.get('/terms-and-conditions',(req,res)=> res.render('terms-and-conditions'
 router.get('/admin/manage-publishers/pending',(req,res)=>res.render('pending-publishers'))
 router.get('/admin/manage-publishers/success',(req,res)=>res.render('pending-publishers-after-approve'))
 router.get('/admin/manage-publishers/reject/:id',(req,res)=>res.render('rejection-form'))
+router.get('/admin/manage-publishers/rejected',(req,res)=> res.render('rejected-publishers'))
 router.get('/browse/filter',(req,res)=> res.render('browseFilter'))
 router.get('/dataset/id_1', (req,res) => res.render("dataset-details") )
 
