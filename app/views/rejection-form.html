@@ -1,0 +1,93 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/hint/macro.njk" import govukHint %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "layouts/main.html" %}
+
+{% set title = "Reject organisation applications" %}
+{% block pageTitle %}{{title}} - {{serviceName}}{% endblock %}
+
+{% set summary_list = [{
+            key: {
+                classes: "govuk-!-padding-0",
+                text: "Name:"
+            },
+            value: {
+                text: "asim"
+            }
+            },{
+            key: {
+                classes: "govuk-!-padding-0",
+                text: "Email Address:"
+            },
+            value: {
+                text: "asim@gmail.com"
+            }
+            },{
+            key: {
+                classes: "govuk-!-padding-0",
+                text: "Organisation:"
+            },
+            value: {
+                text: "Super Transporters 12" 
+            }
+            }] %}
+
+{% block content %}
+    <section class="module">
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
+            {{ title }}
+        </h1>
+        <form action="#" method="post" >
+            <div class="govuk-grid-row" >
+                <div class="govuk-grid-column-two-thirds">
+                    {{ govukSummaryList({
+                        classes: 'govuk-summary-list--no-border',
+                        rows: summary_list
+                    }) }}
+                    {{ govukHint({
+                        text: "Application submitted: 16 March 2023, 7:21",
+                        classes:"govuk-!-padding-bottom-5"
+                    }) }}
+                </div>
+            </div>
+            <div class="govuk-grid-row" >
+                <div class="govuk-grid-column-full">
+                    <h1 class="govuk-heading-m govuk-!-margin-bottom-1">
+                        What is your specific reason for not granting an account?
+                    </h1>
+                    <span class="govuk-caption-m govuk-!-margin-bottom-5 ftd-font-italic">Select all that apply</span>
+                    {% set rejectionReason = [{
+                        id: "rejection_reason_1",
+                        value: "Organisation does not appear to be transport-related",
+                        text: "Organisation does not appear to be transport-related",
+                        label: "ftd-margin-bottom-12"
+                        },{
+                        id: "rejection_reason_2",
+                        value: "Organisation already member of the service",
+                        text: "Organisation already member of the service",
+                        label: "ftd-margin-bottom-12"
+                    }] %}
+
+                    {{ govukCheckboxes({
+                        name: "selectedRejectionReason",
+                        items: rejectionReason
+                    }) }}
+                    {{ govukTextarea({
+                        name: "moreDetailReason",
+                        id: "more_detail_reason",
+                        hint: {
+                            text: "Please provide more details below or give another reason"
+                        }
+                    }) }}
+                    {{ govukButton({
+                        text:"Send response",
+                        type:"submit"
+                    }) }}
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}

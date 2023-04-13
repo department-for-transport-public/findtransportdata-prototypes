@@ -20,9 +20,17 @@
 
 }
 
+.ftd-flex {
+    display: flex;
+}
+
 .ftd-small-heading {
     color:$govuk-brand-colour;
     font-weight: 700;
+}
+
+.ftd-inline-block {
+    display: inline-block;
 }
 
 .js-enabled .filter-expander-icon {
@@ -47,6 +55,16 @@
 }
 .ftd-min-w-10 {
     min-width: 10em;
+}
+
+.ftd-pagination-center {
+    display: flex;
+    justify-content:center !important;
+    align-items:center !important
+}
+
+.ftd-font-italic {
+    font-style: italic;
 }
 
 .filter-checkboxes {
