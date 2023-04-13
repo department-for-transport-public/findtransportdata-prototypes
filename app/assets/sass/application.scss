@@ -20,6 +20,10 @@
 
 }
 
+.ftd-flex {
+    display: flex;
+}
+
 .ftd-small-heading {
     color:$govuk-brand-colour;
     font-weight: 700;
@@ -57,6 +61,10 @@
     display: flex;
     justify-content:center !important;
     align-items:center !important
+}
+
+.ftd-font-italic {
+    font-style: italic;
 }
 
 .filter-checkboxes {
